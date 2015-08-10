@@ -1,6 +1,5 @@
 package org.draszy.client.service;
 
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.draszy.model.Person;
 import org.springframework.stereotype.Service;

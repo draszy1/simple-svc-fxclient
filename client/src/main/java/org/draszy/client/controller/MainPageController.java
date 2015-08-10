@@ -4,9 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.draszy.client.service.ServiceConfiguration;
 import org.draszy.client.service.ServiceHandler;
 import org.draszy.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -46,6 +48,8 @@ public class MainPageController {
 
     @FXML
     void loadData(ActionEvent event) {
+        AnnotationConfigApplicationContext acac = new AnnotationConfigApplicationContext(ServiceConfiguration.class);
+        serviceHandler = acac.getBean("serviceHandler", ServiceHandler.class);
         Person testPerson = serviceHandler.retrieveData();
 
         name.setText(testPerson.getName());
