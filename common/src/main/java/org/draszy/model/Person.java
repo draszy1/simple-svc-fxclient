@@ -1,19 +1,22 @@
 package org.draszy.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import javax.persistence.Entity;
+import lombok.NoArgsConstructor;
 
 /**
  * Created by Szymon on 2015-07-25.
  */
+
 @Data
 @Builder
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Person {
-    String name;
-    String surname;
-    int age;
+    private int id;
+    private String name;
+    private String surname;
+    private int age;
 }
