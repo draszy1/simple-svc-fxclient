@@ -2,10 +2,14 @@ package org.draszy.service.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.draszy.model.Person;
+import org.draszy.service.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Created by Szymon on 2015-07-25.
@@ -15,10 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/person")
 public class PersonController {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/test")
-    public ResponseEntity<Person> getTestPerson() {
-        Person p = Person.builder().age(23).name("Heniek").surname("Zulinski").build();
+    @Autowired
+    PersonRepository repository;
 
-        return ResponseEntity.ok(p);
+    @RequestMapping(method = RequestMethod.GET, value = "/test")
+    public ResponseEntity<List<Person>> getTestPerson() {
+        List<Person> people = repository.findByName("Tony");
+
+        return ResponseEntity.ok(people);
     }
 }
