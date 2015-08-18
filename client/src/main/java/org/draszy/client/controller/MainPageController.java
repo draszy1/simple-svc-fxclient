@@ -4,10 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import org.draszy.client.service.ServiceConfiguration;
 import org.draszy.client.service.ServiceHandler;
 import org.draszy.model.Person;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -16,6 +15,7 @@ import java.util.ResourceBundle;
 @Component
 public class MainPageController {
 
+    @Autowired
     private ServiceHandler serviceHandler;
 
     @FXML
@@ -51,10 +51,5 @@ public class MainPageController {
         name.setText(testPerson.getName());
         surname.setText(testPerson.getSurname());
         age.setText(String.valueOf(testPerson.getAge()));
-    }
-
-    public MainPageController() {
-        AnnotationConfigApplicationContext acac = new AnnotationConfigApplicationContext(ServiceConfiguration.class);
-        serviceHandler = acac.getBean("serviceHandler", ServiceHandler.class);
     }
 }

@@ -12,6 +12,7 @@ import org.draszy.client.controller.MainPageController;
 import org.draszy.client.service.ServiceHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 import java.io.IOException;
@@ -21,8 +22,10 @@ import java.io.IOException;
 @SpringBootApplication
 public class MainApp extends Application {
 
+    private static ConfigurableApplicationContext applicationContext;
+
     public static void main(String[] args) {
-        SpringApplication.run(MainApp.class, args);
+        applicationContext = SpringApplication.run(MainApp.class, args);
         launch(args);
     }
 
@@ -31,7 +34,9 @@ public class MainApp extends Application {
         try {
             log.info("Starting application");
 
-            Parent root = FXMLLoader.load(getClass().getResource("/views/MainPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MainPage.fxml"));
+            loader.setControllerFactory(aClass -> applicationContext.getBean(aClass));
+            Parent root = loader.load();
 
             Scene scene = new Scene(root, 300, 275);
 
