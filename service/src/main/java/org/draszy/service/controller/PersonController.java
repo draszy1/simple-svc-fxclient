@@ -2,6 +2,7 @@ package org.draszy.service.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.draszy.model.Person;
+import org.draszy.service.repository.PersonMongoRepository;
 import org.draszy.service.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,19 @@ public class PersonController {
     @Autowired
     PersonRepository repository;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/test")
+    @Autowired
+    PersonMongoRepository personMongoRepository;
+
+    @RequestMapping(method = RequestMethod.GET, value = "/testsql")
     public ResponseEntity<List<Person>> getTestPerson() {
         List<Person> people = repository.findByName("Tony");
+
+        return ResponseEntity.ok(people);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/testmongo")
+    public ResponseEntity<List<Person>> getTestPersonFromMongo() {
+        List<Person> people = personMongoRepository.findByName("Anna");
 
         return ResponseEntity.ok(people);
     }

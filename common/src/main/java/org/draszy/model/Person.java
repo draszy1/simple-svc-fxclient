@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigInteger;
 
 /**
  * Created by Szymon on 2015-07-25.
@@ -20,10 +21,11 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+//@Document(collection = "people")
 @Table(name = "people")
 public class Person {
     @Id
-    private int id;
+    private BigInteger id;
 
     @Column(name = "name")
     private String name;
