@@ -2,10 +2,10 @@ package org.draszy.service.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.draszy.model.Person;
-import org.draszy.service.repository.PersonMongoRepository;
-import org.draszy.service.repository.PersonRepository;
+import org.draszy.service.business.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,21 +21,25 @@ import java.util.List;
 public class PersonController {
 
     @Autowired
-    PersonRepository repository;
+    PersonService personService;
 
-    @Autowired
-    PersonMongoRepository personMongoRepository;
-
-    @RequestMapping(method = RequestMethod.GET, value = "/testsql")
-    public ResponseEntity<List<Person>> getTestPerson() {
-        List<Person> people = repository.findByName("Tony");
+    @RequestMapping(method = RequestMethod.GET, value = "/all")
+    public ResponseEntity<List<Person>> getAllPeople() {
+        List<Person> people = personService.getAll();
 
         return ResponseEntity.ok(people);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/testmongo")
-    public ResponseEntity<List<Person>> getTestPersonFromMongo() {
-        List<Person> people = personMongoRepository.findByName("Anna");
+    @RequestMapping(method = RequestMethod.GET, value = "/name/{name}")
+    public ResponseEntity<List<Person>> getPeopleByName(@PathVariable String name) {
+        List<Person> people = personService.getByName(name);
+
+        return ResponseEntity.ok(people);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/surname/{surname}")
+    public ResponseEntity<List<Person>> getPeopleBySurname(@PathVariable String surname) {
+        List<Person> people = personService.getBySurname(surname);
 
         return ResponseEntity.ok(people);
     }

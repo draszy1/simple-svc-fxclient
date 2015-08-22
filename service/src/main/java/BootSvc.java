@@ -1,4 +1,5 @@
 import org.draszy.model.Person;
+import org.draszy.service.business.PersonService;
 import org.draszy.service.controller.PersonController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,15 +11,15 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 /**
  * Created by Szymon on 2015-07-25.
  */
-@ComponentScan(basePackageClasses = {PersonController.class})
+@ComponentScan(basePackageClasses = {PersonController.class, PersonService.class})
 @SpringBootApplication
-@EnableJpaRepositories
-@EnableMongoRepositories
+@EnableJpaRepositories(basePackages = {"org.draszy.service.repository.sql"})
+@EnableMongoRepositories(basePackages = {"org.draszy.service.repository.mongo"})
 @EntityScan(basePackageClasses = {Person.class})
 public class BootSvc {
 
 //    @Bean
-//    CommandLineRunner init(PersonRepository personRepository) {
+//    CommandLineRunner init(PersonMongoRepository personRepository) {
 //        Person p1 = Person.builder().id(1).age(10).name("Zylc").surname("Podolski").build();
 //        Person p2 = Person.builder().id(2).age(10).name("Wanel").surname("Hart").build();
 //
