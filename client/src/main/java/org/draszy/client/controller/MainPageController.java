@@ -3,9 +3,9 @@ package org.draszy.client.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import org.draszy.client.service.ServiceHandler;
-import org.draszy.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,19 +37,22 @@ public class MainPageController {
     private Button loadButton;
 
     @FXML
-    void initialize() {
-        assert surname != null : "fx:id=\"surname\" was not injected: check your FXML file 'MainPage.fxml'.";
-        assert name != null : "fx:id=\"name\" was not injected: check your FXML file 'MainPage.fxml'.";
-        assert age != null : "fx:id=\"age\" was not injected: check your FXML file 'MainPage.fxml'.";
-        assert loadButton != null : "fx:id=\"loadButton\" was not injected: check your FXML file 'MainPage.fxml'.";
-    }
+    private ComboBox<Integer> idCombo;
 
     @FXML
     void loadData(ActionEvent event) {
-        Person testPerson = serviceHandler.retrieveData();
+//        Person testPerson = serviceHandler.retrieveData();
+//
+//        name.setText(testPerson.getName());
+//        surname.setText(testPerson.getSurname());
+//        age.setText(String.valueOf(testPerson.getAge()));
 
-        name.setText(testPerson.getName());
-        surname.setText(testPerson.getSurname());
-        age.setText(String.valueOf(testPerson.getAge()));
+        idCombo.getItems().setAll(1,3,4);
+
+        // Handle ComboBox event.
+        idCombo.setOnAction((changeEvent) -> {
+            Integer selectedPerson = idCombo.getSelectionModel().getSelectedItem();
+            System.out.println("ComboBox Action (selected: " + selectedPerson.toString() + ")");
+        });
     }
 }

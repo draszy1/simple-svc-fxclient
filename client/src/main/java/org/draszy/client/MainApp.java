@@ -38,13 +38,14 @@ public class MainApp extends Application {
             loader.setControllerFactory(aClass -> applicationContext.getBean(aClass));
             Parent root = loader.load();
 
-            Scene scene = new Scene(root, 300, 275);
+            Scene scene = new Scene(root, 800, 600);
 
             primaryStage.setTitle("Sample client app");
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
             log.error("Error while starting JavaFX client app.");
+            e.printStackTrace();
         }
     }
 

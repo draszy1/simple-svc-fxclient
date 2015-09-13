@@ -13,5 +13,6 @@
       <Label layoutX="22.0" layoutY="96.0" text="Surname:" />
       <Label layoutX="22.0" layoutY="136.0" text="Age:" />
       <Button fx:id="loadButton" layoutX="89.0" layoutY="188.0" mnemonicParsing="false" onAction="#loadData" text="Load" />
+      <ComboBox fx:id="idCombo" layoutX="244.0" layoutY="54.0" prefWidth="150.0" />
    </children>
 </Pane>
