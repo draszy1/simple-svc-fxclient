@@ -27,6 +27,8 @@
         <spring.boot.version>1.2.5.RELEASE</spring.boot.version>
         <lombok.version>1.16.4</lombok.version>
         <rest-assured.version>2.4.1</rest-assured.version>
+        <springfox.version>2.2.2</springfox.version>
+        <hibernate.version>1.0.0.Final</hibernate.version>
     </properties>
 
     <repositories>
@@ -56,7 +58,7 @@
             <dependency>
                 <groupId>org.hibernate.javax.persistence</groupId>
                 <artifactId>hibernate-jpa-2.1-api</artifactId>
-                <version>1.0.0.Final</version>
+                <version>${hibernate.version}</version>
             </dependency>
 
             <dependency>
@@ -70,6 +72,20 @@
                 <artifactId>rest-assured</artifactId>
                 <version>${rest-assured.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${springfox.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${springfox.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
