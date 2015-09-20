@@ -6,23 +6,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import org.draszy.client.service.ServiceHandler;
+import org.draszy.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.math.BigInteger;
+import java.util.List;
 
 @Component
 public class MainPageController {
 
     @Autowired
     private ServiceHandler serviceHandler;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TextField surname;
@@ -37,22 +32,31 @@ public class MainPageController {
     private Button loadButton;
 
     @FXML
-    private ComboBox<Integer> idCombo;
+    private ComboBox<BigInteger> idCombo;
+
+    private List<Person> people;
+
+    private void fillFieldsById(BigInteger id) {
+        people.forEach(person -> {
+            if (person.getId().equals(id)) {
+                surname.setText(person.getSurname());
+                name.setText(person.getName());
+                age.setText(Integer.toString(person.getAge()));
+            }
+        });
+    }
 
     @FXML
     void loadData(ActionEvent event) {
-//        Person testPerson = serviceHandler.retrieveData();
-//
-//        name.setText(testPerson.getName());
-//        surname.setText(testPerson.getSurname());
-//        age.setText(String.valueOf(testPerson.getAge()));
+        people = serviceHandler.retrieveData();
 
-        idCombo.getItems().setAll(1,3,4);
+
+        people.forEach(person -> idCombo.getItems().add(person.getId()));
 
         // Handle ComboBox event.
         idCombo.setOnAction((changeEvent) -> {
-            Integer selectedPerson = idCombo.getSelectionModel().getSelectedItem();
-            System.out.println("ComboBox Action (selected: " + selectedPerson.toString() + ")");
+            BigInteger selectedPersonId = idCombo.getSelectionModel().getSelectedItem();
+            fillFieldsById(selectedPersonId);
         });
     }
 }

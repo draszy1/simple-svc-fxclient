@@ -12,7 +12,7 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.schema.WildcardType;
-import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
@@ -26,9 +26,26 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
  */
 @Configuration
 public class SwaggerConfig {
+
+    /**
+     * API Info as it appears on the swagger-ui page
+     */
+    private ApiInfo agetApiInfo() {
+        ApiInfo apiInfo = new ApiInfo("People Service API",
+                "People Service retrieves personal data from multiple repositories.",
+                "1.0",
+                "http://nothinghere.org",
+                "Szymon Drawski",
+                "nolicense",
+                "http://thereisnolicense.org"
+        );
+        return apiInfo;
+    }
+
     @Bean
-    public Docket petApi() {
+    public Docket getDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(agetApiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
@@ -48,15 +65,10 @@ public class SwaggerConfig {
                                 .message("500 message")
                                 .responseModel(new ModelRef("Error"))
                                 .build()))
-                .securitySchemes(newArrayList(apiKey()))
                 .enableUrlTemplating(true)
                 ;
     }
 
     @Autowired
     private TypeResolver typeResolver;
-
-    private ApiKey apiKey() {
-        return new ApiKey("mykey", "api_key", "header");
-    }
 }
