@@ -1,3 +1,5 @@
+package org.draszy.service.main;
+
 import org.draszy.model.Person;
 import org.draszy.service.business.PersonService;
 import org.draszy.service.configuration.SwaggerConfig;

@@ -1,5 +1,6 @@
 package org.draszy.service.business;
 
+import lombok.extern.slf4j.Slf4j;
 import org.draszy.model.Person;
 import org.draszy.service.repository.mongo.PersonMongoRepository;
 import org.draszy.service.repository.sql.PersonJpaRepository;
@@ -13,6 +14,7 @@ import java.util.List;
  * Created by Szymon on 22.08.2015.
  */
 @Service
+@Slf4j
 public class PersonService {
 
     @Autowired
@@ -24,8 +26,17 @@ public class PersonService {
     public List<Person> getAll() {
         List<Person> result = new ArrayList<>();
 
-        result.addAll(personJpaRepository.findAll());
-        result.addAll(personMongoRepository.findAll());
+        try {
+            result.addAll(personJpaRepository.findAll());
+        } catch (Exception e) {
+            log.error("Problem while reading data from SQL storage!");
+        }
+
+        try {
+            result.addAll(personMongoRepository.findAll());
+        } catch (Exception e) {
+            log.error("Problem while reading data from NoSQL storage!");
+        }
 
         return result;
     }
@@ -33,8 +44,17 @@ public class PersonService {
     public List<Person> getByName(String name) {
         List<Person> result = new ArrayList<>();
 
-        result.addAll(personJpaRepository.findByName(name));
-        result.addAll(personMongoRepository.findByName(name));
+        try {
+            result.addAll(personJpaRepository.findByName(name));
+        } catch (Exception e) {
+            log.error("Problem while reading data from SQL storage!");
+        }
+
+        try {
+            result.addAll(personMongoRepository.findByName(name));
+        } catch (Exception e) {
+            log.error("Problem while reading data from NoSQL storage!");
+        }
 
         return result;
     }
@@ -42,8 +62,17 @@ public class PersonService {
     public List<Person> getBySurname(String surname) {
         List<Person> result = new ArrayList<>();
 
-        result.addAll(personJpaRepository.findBySurname(surname));
-        result.addAll(personMongoRepository.findBySurname(surname));
+        try {
+            result.addAll(personJpaRepository.findBySurname(surname));
+        } catch (Exception e) {
+            log.error("Problem while reading data from SQL storage!");
+        }
+
+        try {
+            result.addAll(personMongoRepository.findBySurname(surname));
+        } catch (Exception e) {
+            log.error("Problem while reading data from NoSQL storage!");
+        }
 
         return result;
     }
