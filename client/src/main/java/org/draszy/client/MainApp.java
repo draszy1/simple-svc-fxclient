@@ -34,7 +34,7 @@ public class MainApp extends Application {
         try {
             log.info("Starting application");
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MainPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainPage.fxml"));
             loader.setControllerFactory(aClass -> applicationContext.getBean(aClass));
             Parent root = loader.load();
 
